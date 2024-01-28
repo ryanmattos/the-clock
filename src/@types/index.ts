@@ -1,5 +1,6 @@
 export type Clock = {
     date: Date;
+    type: "in" | "out"
     timeStr: string;
     title: string;
     description: string | null;

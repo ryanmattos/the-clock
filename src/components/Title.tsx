@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from 'react-native'
 
-export default function Title() {
+export default function Title(): React.JSX.Element {
     return (
         <View style={style.container}>
             <Text style={{ ...style.root, ...style._0}}>the</Text>

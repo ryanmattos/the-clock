@@ -1,12 +1,14 @@
-import DailyHistory from '@/components/DailyHistory';
-import DateNavigator from '@/components/DateNavigator';
 import Title from '@/components/Title';
-import { Inter_400Regular, Inter_500Medium, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
+import { Inter_400Regular, Inter_700Bold, useFonts } from '@expo-google-fonts/inter';
 import { Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import Toast from 'react-native-toast-message';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Appearance, useColorScheme } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import PunchScreen from '@/screens/PunchScreen';
+
+import '@/common/date'
 
 export default function App() {
   let [fontsLoaded, fontError] = useFonts({
@@ -33,10 +35,10 @@ export default function App() {
     <SafeAreaProvider style={{ backgroundColor: 'red' }}>
       <View style={styles.container}>
         <Title />
-        <DateNavigator />
-        <DailyHistory />
+        <PunchScreen />
         <StatusBar style="auto" />
       </View>
+      <Toast topOffset={50} visibilityTime={2000}/>
     </SafeAreaProvider>
   );
 }

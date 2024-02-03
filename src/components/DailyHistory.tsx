@@ -1,37 +1,22 @@
 import { View, Text, StyleSheet } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { useState } from 'react'
-import { Clock } from '@/@types'
-import { CountdownCircleTimer, useCountdown } from 'react-native-countdown-circle-timer'
+import { Punch } from '@/@types'
 
-export default function DailyHistory() {
-    const {
-        path,
-        pathLength,
-        stroke,
-        strokeDashoffset,
-        remainingTime,
-        elapsedTime,
-        size,
-        strokeWidth,
-      } = useCountdown({ isPlaying: true, duration: 7, colors: '#abc' })
-      
-    const [punches, setPunches] = useState<Array<Partial<Clock>>>([
-        { type: 'in', title: 'Ponto #1', timeStr: '09:00' },
-        { type: 'out', title: 'Ponto #2', timeStr: '11:56' },
-        { type: 'in', title: 'Ponto #3', timeStr: '12:59' },
-        { type: 'out', title: 'Ponto #4', description: 'fui comprar cigarro', timeStr: '14:12' },
-        { type: 'in', title: 'Ponto #5', timeStr: '14:22' },
-        { type: 'out', title: 'Ponto #6', timeStr: '18:10' },
-    ])
+export type DailyHistoryProps = {
+    punches: Array<Punch> | Array<Partial<Punch>>
+}
 
+type Props = DailyHistoryProps
+
+export default function DailyHistory({ punches }: Props): React.JSX.Element {
     return (
         <View style={_.container}>
             <Text style={_.title}>Pontos do dia</Text>
             <View>
-                {
+                {   punches &&
                     punches.map((punch) => (
-                        <View style={_.item}>
+                        <View style={_.item} key={punch.title}>
                             <View style={_.itemLeft}>
                                 { punch.type === 'in' && <FontAwesome5 name="arrow-circle-right" size={16} color="green"/> }
                                 { punch.type === 'out' && <FontAwesome5 name="arrow-circle-left" size={16} color="red" /> }
@@ -42,14 +27,6 @@ export default function DailyHistory() {
                     ))
                 }
             </View>
-            <CountdownCircleTimer
-                isPlaying
-                duration={7}
-                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                colorsTime={[7, 5, 2, 0]}
-            >
-                {({ remainingTime }) => <Text>{remainingTime}</Text>}
-            </CountdownCircleTimer>
         </View>
     )
 }

@@ -1,10 +1,9 @@
-import { Punch } from "@/@types"
+import { Punch, PunchAdd } from "@/@types"
 import { format } from "date-fns"
 import { Button } from 'react-native'
-import Toast from "react-native-toast-message"
 
 export type PunchTheClockProps = {
-    addPunchFn: (punch: Partial<Punch>) => void
+    addPunchFn: (punch: PunchAdd) => void
 }
 
 type Props = PunchTheClockProps
@@ -12,18 +11,12 @@ type Props = PunchTheClockProps
 export default function PunchTheClock({ addPunchFn }: Props): React.JSX.Element {
 
     const handlePress = () => {
-
         const now = new Date()
 
         addPunchFn({
             date: now,
             isModified: false,
             timeStr: format(now, 'HH:mm')
-        })
-
-        Toast.show({
-            type: 'success',
-            text1: 'Relógio socado com sucesso!',
         })
     }
 

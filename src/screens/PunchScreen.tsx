@@ -4,10 +4,9 @@ import PunchTheClock from "@/components/PunchTheClock";
 import { useReducer, useState } from "react";
 import { Text } from 'react-native'
 import { CountdownCircleTimer, useCountdown } from "react-native-countdown-circle-timer";
-import { Punch } from "@/@types"
+import { Punch, PunchAdd } from "@/@types"
 import { punchesReducer } from "@/reducers/PunchReducer";
 import { ActionReducer } from "@/enums/ActionType";
-import { isEven } from "@/utils";
 
 export default function PunchScreen(): React.JSX.Element {
     const [isPlaying, setIsPlaying] = useState<boolean>(false);
@@ -25,26 +24,12 @@ export default function PunchScreen(): React.JSX.Element {
 
     const [punches, dispatch] = useReducer(punchesReducer, initialPunches)
 
-    function handleAddPunch(payload: Partial<Punch>) {
+    function handleAddPunch(payload: PunchAdd) {
         setIsPlaying(!isPlaying)
 
-        const punch: Punch = {
-            date: payload.date!,
-            isModified: payload.isModified!,
-            description: payload.description,
-            timeStr: payload.timeStr!,
-            type: isEven(punches.length) ? 'in' : 'out',
-            title: `Ponto #${punches.length + 1}`
-        }
-
-        console.log({
-            type: ActionReducer.ADDED,
-            payload: punch
-        });
-        
         dispatch({
             type: ActionReducer.ADDED,
-            payload: punch
+            payload
         })
     }
 

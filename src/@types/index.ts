@@ -1,3 +1,10 @@
+export type PunchAdd = {
+    date: Date;
+    isModified: boolean;
+    timeStr: string;
+    description?: string;
+}
+
 export type Punch = {
     date: Date;
     type: "in" | "out"
